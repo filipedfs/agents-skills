@@ -1,8 +1,33 @@
 start-agent() {
-  local branch_name="$1"
+  local agent="copilot"
+  local branch_name=""
+
+  # Parse arguments
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --agent)
+        if [[ -n "$2" && "$2" != --* ]]; then
+          agent="$2"
+          shift 2
+        else
+          echo "Error: --agent requires a value (copilot, claude, cursor)."
+          return 1
+        fi
+        ;;
+      *)
+        if [[ -z "$branch_name" ]]; then
+          branch_name="$1"
+          shift
+        else
+          echo "Error: Unexpected argument '$1'."
+          return 1
+        fi
+        ;;
+    esac
+  done
 
   if [ -z "$branch_name" ]; then
-    echo "Usage: start-agent <branch-name>"
+    echo "Usage: start-agent [--agent <agent>] <branch-name>"
     return 1
   fi
 
@@ -39,17 +64,32 @@ start-agent() {
   # 2. Navigate into the worktree
   cd "$target_dir" || return
 
-  # 3. Launch the standalone Copilot CLI
-  copilot \
-    --agent orchestrator \
-    --allow-tool 'shell(grep)' \
-    --allow-tool 'shell(cat)' \
-    --allow-tool 'shell(mkdir)' \
-    --allow-tool 'shell(ls)' \
-    --allow-tool 'shell(find)' \
-    --allow-tool 'shell(fvm flutter analyze)' \
-    --allow-tool 'shell(fvm flutter test)' \
-    --allow-tool 'shell(fvm flutter gen l10n)'
+  # 3. Launch the selected agent
+  case "$agent" in
+    copilot)
+      copilot \
+        --agent orchestrator \
+        --allow-tool 'shell(grep)' \
+        --allow-tool 'shell(cat)' \
+        --allow-tool 'shell(mkdir)' \
+        --allow-tool 'shell(ls)' \
+        --allow-tool 'shell(find)' \
+        --allow-tool 'shell(fvm flutter analyze)' \
+        --allow-tool 'shell(fvm flutter test)' \
+        --allow-tool 'shell(fvm flutter gen l10n)'
+      ;;
+    claude)
+      claude
+      ;;
+    cursor)
+      cursor .
+      ;;
+    *)
+      echo "Error: Unknown agent '$agent'."
+      cd "$original_dir" || return
+      return 1
+      ;;
+  esac
 
   # 4. Check for uncommitted changes
   local has_changes=false
