@@ -40,7 +40,16 @@ start-agent() {
   cd "$target_dir" || return
 
   # 3. Launch the standalone Copilot CLI
-  copilot --agent orchestrator
+  copilot \
+    --agent orchestrator \
+    --allow-tool 'shell(grep)' \
+    --allow-tool 'shell(cat)' \
+    --allow-tool 'shell(mkdir)' \
+    --allow-tool 'shell(ls)' \
+    --allow-tool 'shell(find)' \
+    --allow-tool 'shell(fvm flutter analyze)' \
+    --allow-tool 'shell(fvm flutter test)' \
+    --allow-tool 'shell(fvm flutter gen l10n)'
 
   # 4. Check for uncommitted changes
   local has_changes=false
