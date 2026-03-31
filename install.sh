@@ -2,14 +2,24 @@
 
 # Target directory for the functions
 TARGET_DIR="$HOME/.agents-skills/functions"
+CLAUDE_SKILLS_DIR="$HOME/.claude/skills"
 
 # Create the target directory if it doesn't exist
 echo "Creating directory $TARGET_DIR..."
 mkdir -p "$TARGET_DIR"
 
+echo "Creating directory $CLAUDE_SKILLS_DIR..."
+mkdir -p "$CLAUDE_SKILLS_DIR"
+
 # Copy all files from the local functions/ directory to the target directory
 echo "Copying functions to $TARGET_DIR..."
 cp -v functions/*.zsh "$TARGET_DIR/" 2>/dev/null || cp -v functions/* "$TARGET_DIR/"
+
+# Copy all skills from the local skills/ directory to the claude skills directory
+echo "Copying skills to $CLAUDE_SKILLS_DIR..."
+if [ -d "skills" ]; then
+  cp -rv skills/* "$CLAUDE_SKILLS_DIR/"
+fi
 
 # Snippet to add to shell configuration files
 SNIPPET_HEADER="# Load all custom agents-skills functions"
