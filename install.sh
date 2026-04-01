@@ -13,7 +13,7 @@ mkdir -p "$CLAUDE_SKILLS_DIR"
 
 # Copy all files from the local functions/ directory to the target directory
 echo "Copying functions to $TARGET_DIR..."
-cp -v functions/*.zsh "$TARGET_DIR/" 2>/dev/null || cp -v functions/* "$TARGET_DIR/"
+cp -v functions/* "$TARGET_DIR/" 2>/dev/null || cp -v functions/* "$TARGET_DIR/"
 
 # Copy all skills from the local skills/ directory to the claude skills directory
 echo "Copying skills to $CLAUDE_SKILLS_DIR..."

@@ -1,0 +1,30 @@
+#!/usr/bin/expect -f
+
+# Disable timeout in case the VPN server is slow to prompt
+# set timeout -1
+
+# Check if the environment variables exist to prevent errors
+if {![info exists env(SUPERSIM_USERNAME)] || ![info exists env(SUPERSIM_PASSWORD)]} {
+    puts "Error: SUPERSIM_USERNAME and SUPERSIM_PASSWORD environment variables must be set."
+    exit 1
+}
+
+# Assign the environment variables to local expect variables
+set username $env(SUPERSIM_USERNAME)
+set password $env(SUPERSIM_PASSWORD)
+
+# Spawn the openvpn3 process
+spawn openvpn3 session-start --config ${username}
+
+# Look for the username prompt (using regex to catch "Username:" or "User name:")
+expect -re {.*[Uu]ser ?name:.*}
+send "$username\r"
+
+# Look for the password prompt
+expect -re {.*[Pp]assword:.*}
+send "$password\r"
+
+interact
+
+# Wait for the openvpn3 command to finish its output and exit
+# expect eof
