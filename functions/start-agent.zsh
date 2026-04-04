@@ -81,6 +81,9 @@ start-agent() {
     claude)
       claude
       ;;
+    gemini)
+      gemini
+      ;;
     cursor)
       cursor .
       ;;
