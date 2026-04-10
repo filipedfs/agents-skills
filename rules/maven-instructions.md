@@ -15,3 +15,7 @@ clean install -DskipTests -Dproject.config.infrastructure.build.phase=none -Dpro
 - `-Dproject.config.infrastructure.build.phase=none` skips the build phase of the infrastructure module.
 - `-Dproject.config.infrastructure.deploy.phase=none` skips the deploy phase of the infrastructure module.
 - `-Dskip.npm` skips the npm install phase for the frontend.
+
+When node version needs to be changed, use nvm command to change the version.
+
+- `source $HOME/.nvm/nvm.sh && nvm use {version to use}`
