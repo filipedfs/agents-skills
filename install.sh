@@ -6,6 +6,8 @@ CLAUDE_SKILLS_DIR="$HOME/.claude/skills"
 CLAUDE_AGENTS_DIR="$HOME/.claude/agents"
 COPILOT_AGENTS_DIR="$HOME/.copilot/agents"
 COPILOT_SKILLS_DIR="$HOME/.copilot/skills"
+CLAUDE_RULES_DIR="$HOME/.claude/rules"
+COPILOT_RULES_DIR="$HOME/.copilot/rules"
 
 # Create a directory if it doesn't exist
 ensure_dir() {
@@ -61,6 +63,8 @@ ensure_dir "$CLAUDE_SKILLS_DIR"
 ensure_dir "$CLAUDE_AGENTS_DIR"
 ensure_dir "$COPILOT_AGENTS_DIR"
 ensure_dir "$COPILOT_SKILLS_DIR"
+ensure_dir "$CLAUDE_RULES_DIR"
+ensure_dir "$COPILOT_RULES_DIR"
 
 # Install files to their target directories
 copy_files "functions" "$TARGET_DIR"
@@ -68,6 +72,8 @@ copy_files "skills" "$CLAUDE_SKILLS_DIR" "-rv"
 copy_files "agents" "$CLAUDE_AGENTS_DIR"
 copy_files "agents" "$COPILOT_AGENTS_DIR"
 copy_files "skills" "$COPILOT_SKILLS_DIR" "-rv"
+copy_files "rules" "$CLAUDE_RULES_DIR"
+copy_files "rules" "$COPILOT_RULES_DIR"
 
 # Add shell integration snippet to .zshrc and .bashrc
 add_to_rc "$HOME/.zshrc"
