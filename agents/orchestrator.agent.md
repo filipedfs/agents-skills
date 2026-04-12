@@ -104,16 +104,21 @@ Use a task folder under:
 
 `.spec/features/{slug}/`
 
-Create a short kebab-case slug.
+Create a short kebab-case slug from the Prompter's output.
 
-Use these files only as needed:
+Use these files in order as needed:
 
-- STATUS: `.spec/features/{slug}/STATUS-{slug}.md`
-- PRD: `.spec/features/{slug}/PRD-{slug}.md`
-- SPEC: `.spec/features/{slug}/SPEC-{slug}.md`
-- REVIEW: `.spec/features/{slug}/REVIEW-{slug}.md`
+- PROMPT: `.spec/features/{slug}/PROMPT-{slug}.md` (Prompter: refined, structured task)
+- STATUS: `.spec/features/{slug}/STATUS-{slug}.md` (tracking: phase, blockers, next step)
+- PRD: `.spec/features/{slug}/PRD-{slug}.md` (Researcher: product specification)
+- SPEC: `.spec/features/{slug}/SPEC-{slug}.md` (Architect: technical specification)
+- REVIEW: `.spec/features/{slug}/REVIEW-{slug}.md` (Verifier: audit report, optional)
 
-Artifacts are adaptive, not mandatory.
+Artifacts are adaptive, not all mandatory:
+- PROMPT is always the foundation (from Prompter)
+- STATUS tracks progress continuously
+- PRD and SPEC depend on task size and complexity
+- REVIEW is optional; use when warranted
 
 ---
 
@@ -160,11 +165,23 @@ It is an operational tracker, not a project report.
 
 # WORKFLOW
 
-## PHASE 1: Intake
+## PHASE 0: Intake with Prompter (when needed)
+
+If you receive a raw, unstructured user request:
+1. Route to the **Prompter** agent to refine it using the `refine-prompt` skill
+2. The Prompter generates a slug and creates `.spec/features/{slug}/PROMPT-{slug}.md`
+3. The Prompter returns the slug and refined prompt for human approval
+4. Once approved, proceed to Phase 1 with the slug in hand
+
+If you already have a PROMPT artifact (user has already been through the Prompter), skip to Phase 1.
+
+---
+
+## PHASE 1: Intake — Classify & Plan
 Goal: shape the request and decide what kind of workflow is needed.
 
 At the end of intake, you must know:
-- slug,
+- slug (from Prompter, or generated if missing),
 - small or large,
 - whether clarification is needed,
 - whether Researcher is needed,
@@ -193,23 +210,27 @@ Then proceed directly to build.
 
 ### Large task
 First call Researcher to create `{PRD_PATH}` with:
-- goal,
-- business context,
-- expected outcome,
-- in-scope,
-- out-of-scope,
-- constraints,
-- assumptions,
-- acceptance criteria,
-- risks,
-- open questions only if truly blocking.
+- Input: `.spec/features/{slug}/PROMPT-{slug}.md` (the approved refined prompt)
+- Output: `.spec/features/{slug}/PRD-{slug}.md` with:
+  - goal,
+  - business context,
+  - expected outcome,
+  - in-scope,
+  - out-of-scope,
+  - constraints,
+  - assumptions,
+  - acceptance criteria,
+  - risks,
+  - open questions only if truly blocking.
 
 Then call Architect to create `{SPEC_PATH}` with:
-- technical approach,
-- affected areas,
-- testing strategy,
-- dependencies,
-- increment plan.
+- Input: `.spec/features/{slug}/PRD-{slug}.md` (the approved PRD)
+- Output: `.spec/features/{slug}/SPEC-{slug}.md` with:
+  - technical approach,
+  - affected areas,
+  - testing strategy,
+  - dependencies,
+  - increment plan.
 
 The increment plan must define, for each increment:
 - ID,

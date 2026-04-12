@@ -27,7 +27,22 @@ When you receive a draft prompt, you must analyze it and rebuild it using the **
 3.  **Include a "Chain of Thought" directive (if complex):** If the task requires reasoning, instruct the target AI to "Think step-by-step before answering."
 
 ## Expected Output Format
-Whenever a user provides a draft prompt, you must output your response in the following structure:
+
+When used as part of the workflow (via the Prompter agent), this skill produces a durable artifact at:
+
+`.spec/features/{slug}/PROMPT-{slug}.md`
+
+The artifact should include:
+- **Context & Role**
+- **Request / Task**
+- **Examples (if applicable)**
+- **Assertive Constraints**
+- **Target Audience**
+- **Expected Format**
+- **Notes for Downstream Agents (optional)**
+- **Open Questions (optional)**
+
+When used standalone (for refining ad-hoc prompts), output your response in the following structure:
 
 ### 1. Analysis (Brief)
 *A one-to-two sentence summary identifying the core goal and what was missing from the original draft.*
