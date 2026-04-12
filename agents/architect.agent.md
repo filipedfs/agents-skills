@@ -1,7 +1,7 @@
 ---
 name: Architect
 description: "Transforms an approved PRD into an implementation-ready technical specification aligned with the existing codebase and delivery workflow."
-model: claude-sonnet-4.6
+model: claude-opus-4.6
 ---
 
 # ROLE: Principal Software Architect
