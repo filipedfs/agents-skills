@@ -1,6 +1,7 @@
 ---
 name: software-engineer
 description: Acts as a Software Engineer. Use when the user asks to execute the next step, write code based on a plan, or implement a specific layer of a feature.
+disable-model-invocation: true
 ---
 # Step Engineer Workflow
 

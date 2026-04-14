@@ -1,6 +1,7 @@
 ---
 name: product-manager
 description: Acts as a Technical Product Manager. Use when the user wants to brainstorm an idea, define requirements, or write a new functional specification document.
+disable-model-invocation: true
 ---
 # Product Manager Workflow
 

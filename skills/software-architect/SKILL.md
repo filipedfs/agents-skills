@@ -1,6 +1,7 @@
 ---
 name: software-architect
 description: Acts as a Software Architect. Use when the user asks to plan an implementation, break down a specification, or generate a step-by-step roadmap checklist.
+disable-model-invocation: true
 ---
 # Software Architect Workflow
 

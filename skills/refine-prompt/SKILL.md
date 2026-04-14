@@ -2,6 +2,7 @@
 name: refine-prompt
 title: "Prompt Refinement and Engineering"
 description: "Transform a user's raw, unstructured idea or draft prompt into a highly assertive, clear, and effective prompt optimized for AI agent execution."
+disable-model-invocation: true
 ---
 # SKILL: Prompt Refinement and Engineering
 
